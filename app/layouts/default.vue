@@ -4,7 +4,7 @@
       <v-container class="d-flex align-center py-0">
         <NuxtLink class="brand d-flex align-center ga-2 text-decoration-none" to="/">
           <v-icon color="amber" icon="mdi-filmstrip-box-multiple" size="28" />
-          <span>Cine<span class="brand-accent">Vault</span></span>
+          <span>Film <span class="brand-accent">Max</span></span>
         </NuxtLink>
 
         <nav class="main-nav d-flex align-center ga-2 ml-10">
@@ -50,7 +50,7 @@
       </div>
       <footer class="app-footer">
         <v-container class="footer-content">
-          © 2026 <span class="footer-brand">CineVault™</span>
+          © 2026 <span class="footer-brand">Film Max</span>
           <span class="footer-separator">·</span>
           Created by Mhikel Q. David
           <span class="footer-separator">·</span>

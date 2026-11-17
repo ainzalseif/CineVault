@@ -1,12 +1,11 @@
 <<<<<<< HEAD
-# CineVault
+# Film Max
 =======
-# CineVault
+# Film Max
 
 A small, local-first movie catalog and watchlist built with Nuxt 4, Vuetify 4, and Video.js.
 
-**CineVault™** — Created by Mhikel Q. David · Est. 2026  
-The ™ symbol is a branding notice and does not indicate trademark registration.
+**Film Max** — Created by Mhikel Q. David · Est. 2026
 
 ## Features
 
@@ -16,7 +15,7 @@ The ™ symbol is a branding notice and does not indicate trademark registration
 - Play the openly licensed Big Buck Bunny short film with Video.js.
 - Sign in with Google using the existing OAuth flow.
 
-Movie trailer playback is embedded from YouTube; CineVault does not host commercial movies. YouTube controls whether a video can be embedded in your region or on your browser. The openly licensed Big Buck Bunny film is streamed from the Internet Archive.
+Movie trailer playback is embedded from YouTube; Film Max does not host commercial movies. YouTube controls whether a video can be embedded in your region or on your browser. The openly licensed Big Buck Bunny film is streamed from the Internet Archive.
 
 ## Setup
 

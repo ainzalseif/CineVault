@@ -29,7 +29,7 @@
           </v-btn>
         </div>
         <v-alert v-if="movie.youtubeId" class="mt-8" type="info" variant="tonal" density="comfortable">
-          Trailer playback is provided by YouTube. CineVault does not host or distribute movie files.
+          Trailer playback is provided by YouTube. Film Max does not host or distribute movie files.
         </v-alert>
       </div>
     </div>

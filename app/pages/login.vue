@@ -2,7 +2,7 @@
   <v-container class="fill-height d-flex align-center justify-center">
     <v-card width="400" class="pa-6 rounded-xl">
       <v-card-title class="text-center text-h5">
-        Welcome to CineVault
+        Welcome to Film Max
       </v-card-title>
       <v-card-text>
         <p class="text-center text-medium-emphasis mb-5">

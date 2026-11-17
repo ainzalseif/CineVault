@@ -5,7 +5,7 @@
 </template>
 <script setup lang="ts">
 useHead({
- title: 'CineVault — Discover your next favorite',
+ title: 'Film Max — Discover your next favorite',
  meta: [
   { name: 'theme-color', content: '#0f1118' }
  ],
