@@ -7,7 +7,7 @@
           Discover your next favorite movies
         </v-chip>
         <h1>Stories worth<br>staying in for.</h1>
-        <p>Discover unforgettable movies, watch official trailers, and keep your next favorite close.</p>
+        <p>Discover unforgettable movies, watch official trailers and short films, and keep your next favorite close.</p>
         <div class="d-flex flex-wrap ga-3 mt-7">
           <v-btn color="amber" size="large" to="/movies" append-icon="mdi-arrow-right">
             Explore movies
@@ -26,32 +26,72 @@
       </v-container>
     </section>
 
+    <v-container class="section-container genre-container pt-8">
+      <div class="d-flex flex-wrap align-center ga-3">
+        <span class="eyebrow">BROWSE BY GENRE</span>
+        <v-chip
+          v-for="genre in genreShortcuts"
+          :key="genre"
+          :to="{ path: '/movies', query: { genre } }"
+          variant="outlined"
+          color="white"
+        >
+          {{ genre }}
+        </v-chip>
+      </div>
+    </v-container>
+
     <v-container class="section-container py-12 py-md-16">
       <div class="section-heading d-flex align-end justify-space-between mb-6">
         <div>
-          <div class="eyebrow">A GOOD PLACE TO START</div>
-          <h2>Popular picks</h2>
+          <div class="eyebrow">RATED BY MOVIE FANS</div>
+          <h2>Top-rated picks</h2>
         </div>
         <v-btn variant="text" color="amber" to="/movies" append-icon="mdi-arrow-right">
           Browse all
         </v-btn>
       </div>
       <v-row>
-        <v-col v-for="movie in popularMovies" :key="movie.id" cols="6" sm="4" md="3">
+        <v-col v-for="movie in topRatedMovies" :key="movie.id" cols="6" sm="4" md="3">
           <MovieCard :movie="movie" />
         </v-col>
       </v-row>
 
-      <div class="home-note mt-12">
-        <v-icon icon="mdi-movie-open-play" color="amber" size="30" />
-        <div>
-          <strong>Watch trailers, legally and easily.</strong>
-          <p>Movie trailers open from YouTube. Big Buck Bunny is included as a full, openly licensed film played with Video.js.</p>
-          <v-btn class="mt-3" color="amber" to="/watch/big-buck-bunny" prepend-icon="mdi-play">
-            Watch Big Buck Bunny
-          </v-btn>
+      <section v-if="fullFilms.length" class="full-films mt-12">
+        <div class="section-heading d-flex flex-wrap align-end justify-space-between ga-3 mb-6">
+          <div>
+            <div class="eyebrow">AUTHORIZED FEATURE-FILM SOURCES</div>
+            <h2>Watch a feature film</h2>
+            <p class="full-films-description">
+              These feature-length titles have a playable source; other movie entries link to trailers.
+            </p>
+          </div>
+          <v-icon icon="mdi-movie-open-play" color="amber" size="30" />
         </div>
-      </div>
+        <v-row>
+          <v-col v-for="movie in fullFilms" :key="movie.id" cols="6" sm="4" md="3">
+            <MovieCard :movie="movie" />
+          </v-col>
+        </v-row>
+      </section>
+
+      <section v-if="shortFilms.length" class="full-films mt-12">
+        <div class="section-heading d-flex flex-wrap align-end justify-space-between ga-3 mb-6">
+          <div>
+            <div class="eyebrow">COMPLETE SHORT STORIES</div>
+            <h2>Short films</h2>
+            <p class="full-films-description">
+              Watch complete short films from their official or openly licensed sources.
+            </p>
+          </div>
+          <v-icon icon="mdi-movie-open-play" color="amber" size="30" />
+        </div>
+        <v-row>
+          <v-col v-for="movie in shortFilms" :key="movie.id" cols="6" sm="4" md="3">
+            <MovieCard :movie="movie" />
+          </v-col>
+        </v-row>
+      </section>
     </v-container>
   </div>
 </template>
@@ -59,7 +99,13 @@
 <script setup lang="ts">
 import { movies } from '~/data/movies'
 
-const popularMovies = movies.slice(0, 4)
+const topRatedMovies = [...movies]
+  .sort((a, b) => b.rating - a.rating)
+  .slice(0, 4)
+const fullFilms = movies.filter(movie => Boolean(movie.videoUrl) && movie.contentType !== 'short-film')
+const shortFilms = movies.filter(movie => movie.contentType === 'short-film')
+const genreShortcuts = ['Action', 'Adventure', 'Animation', 'Comedy', 'Drama', 'Sci-Fi']
+  .filter(genre => movies.some(movie => movie.genre === genre))
 </script>
 
 <style scoped>
@@ -135,29 +181,22 @@ h1 {
   max-width: 1240px;
 }
 
+.genre-container {
+  padding-bottom: 0;
+}
+
+.full-films-description {
+  margin-top: 8px;
+  color: #a4a8b4;
+  font-size: 0.9rem;
+}
+
 h2 {
   margin-top: 7px;
   color: #fff;
   font-size: 2rem;
   font-weight: 750;
   letter-spacing: -0.04em;
-}
-
-.home-note {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 20px 24px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  background: #171a23;
-  color: white;
-}
-
-.home-note p {
-  margin-top: 4px;
-  color: #a4a8b4;
-  font-size: 0.9rem;
 }
 
 @media (max-width: 600px) {

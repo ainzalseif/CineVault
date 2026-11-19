@@ -16,7 +16,7 @@
         <p class="description">{{ movie.description }}</p>
         <div class="d-flex flex-wrap ga-3 mt-8">
           <v-btn color="amber" size="large" :to="`/watch/${movie.id}`" prepend-icon="mdi-play">
-            {{ movie.videoUrl ? 'Watch film' : 'Watch trailer' }}
+            {{ movie.contentType === 'short-film' ? 'Watch short film' : movie.videoUrl ? 'Watch film' : 'Watch trailer' }}
           </v-btn>
           <v-btn
             :color="isSaved ? 'red' : 'white'"
@@ -29,7 +29,8 @@
           </v-btn>
         </div>
         <v-alert v-if="movie.youtubeId" class="mt-8" type="info" variant="tonal" density="comfortable">
-          Trailer playback is provided by YouTube. Film Max does not host or distribute movie files.
+          {{ movie.contentType === 'short-film' ? 'Short-film playback is embedded from YouTube.' : 'Trailer playback is provided by YouTube.' }}
+          Film Max does not host or distribute movie files.
         </v-alert>
       </div>
     </div>

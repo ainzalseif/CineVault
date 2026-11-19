@@ -4,7 +4,7 @@
       Back to {{ movie.title }}
     </v-btn>
     <div class="watch-heading mb-5">
-      <div class="eyebrow">{{ movie.videoUrl ? 'FEATURE PRESENTATION' : 'OFFICIAL TRAILER' }}</div>
+      <div class="eyebrow">{{ watchContentLabel }}</div>
       <h1>{{ movie.title }}</h1>
       <p>{{ movie.year }} <span class="dot">•</span> {{ movie.genre }} <span class="dot">•</span> {{ movie.runtime }}</p>
     </div>
@@ -19,15 +19,18 @@
       <iframe
         v-else-if="movie.youtubeId"
         :src="`https://www.youtube-nocookie.com/embed/${movie.youtubeId}?rel=0`"
-        :title="`${movie.title} official trailer`"
+        :title="`${movie.title} ${movie.contentType === 'short-film' ? 'short film' : 'official trailer'}`"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         referrerpolicy="strict-origin-when-cross-origin"
         allowfullscreen
       />
     </div>
     <p class="player-caption">
-      <template v-if="movie.videoUrl">
-        This openly licensed Blender short film is streamed from the Internet Archive using Video.js.
+      <template v-if="movie.contentType === 'short-film'">
+        {{ movie.videoNote || 'This short film is streamed from its published source.' }}
+      </template>
+      <template v-else-if="movie.videoUrl">
+        {{ movie.videoNote || 'This full film is streamed from Internet Archive using Video.js.' }}
       </template>
       <template v-else>
         Trailer is embedded from YouTube. Playback availability is controlled by YouTube and the video owner.
@@ -45,6 +48,11 @@ const movie = getMovie(String(route.params.id))
 if (!movie) {
   throw createError({ statusCode: 404, statusMessage: 'Movie not found' })
 }
+
+const watchContentLabel = computed(() => {
+  if (movie.contentType === 'short-film') return 'SHORT FILM'
+  return movie.videoUrl ? 'FEATURE PRESENTATION' : 'OFFICIAL TRAILER'
+})
 </script>
 
 <style scoped>

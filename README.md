@@ -8,10 +8,13 @@ A Nuxt 4 and Vuetify 4 movie catalog with Google sign-in, a protected dashboard,
 - `/` — protected dashboard.
 - `/discover` — movie discovery page.
 - `/watch/big-buck-bunny` — Video.js library demo featuring the openly licensed Big Buck Bunny short film.
+- `/watch/sintel` — Sintel, an openly licensed Blender Foundation short film streamed from Internet Archive through Video.js.
+- `/watch/tears-of-steel` — Tears of Steel, a Blender Institute short film streamed from Internet Archive through Video.js.
+- `/watch/the-general` — public-domain feature film streamed from Internet Archive through Video.js.
 
 **Chosen third-party library:** [Video.js](https://videojs.com/).
 
-**Live URL:** Not deployed yet. Add the public HTTPS URL here after deployment.
+**Live URL:** Deployed through Vercel; add the production URL from the Vercel project domains.
 
 ## Local setup
 
