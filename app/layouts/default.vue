@@ -153,7 +153,10 @@ const authCookie = useCookie<string | null>('google_auth', {
 })
 const sidebarCollapsed = ref(false)
 const mobileSidebarOpen = ref(false)
-const user = ref<{ name?: string; email?: string; picture?: string } | null>(null)
+const user = useState<{ name?: string; email?: string; picture?: string } | null>(
+  'google-user',
+  () => null,
+)
 const navItems = [
   { to: '/discover', label: 'Discover', icon: 'mdi-compass-outline' },
   { to: '/', label: 'Dashboard', icon: 'mdi-view-dashboard-outline' },

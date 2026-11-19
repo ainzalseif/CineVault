@@ -93,6 +93,10 @@ const authCookie = useCookie<string | null>('google_auth', {
   path: '/',
   sameSite: 'lax',
 })
+const user = useState<{ name?: string; email?: string; picture?: string } | null>(
+  'google-user',
+  () => null,
+)
 
 interface GoogleTokenResponse {
   access_token?: string
@@ -163,7 +167,7 @@ const loginWithGoogle = () => {
       }
 
       try {
-        const userInfo = await $fetch(
+        const userInfo = await $fetch<{ name?: string; email?: string; picture?: string }>(
           'https://www.googleapis.com/oauth2/v3/userinfo',
           {
             headers: {
@@ -173,6 +177,7 @@ const loginWithGoogle = () => {
         )
 
         localStorage.setItem('google_user', JSON.stringify(userInfo))
+        user.value = userInfo
         localStorage.removeItem('google_token')
         authCookie.value = '1'
         await navigateTo('/discover')
