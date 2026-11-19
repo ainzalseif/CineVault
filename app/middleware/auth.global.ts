@@ -11,7 +11,7 @@ export default defineNuxtRouteMiddleware((to) => {
 
   if (import.meta.server) {
     if (to.path === '/login' && hasServerSession) {
-      return navigateTo('/')
+      return navigateTo('/discover')
     }
 
     if (to.path !== '/login' && !hasServerSession) {
@@ -25,7 +25,7 @@ export default defineNuxtRouteMiddleware((to) => {
 
   if (to.path === '/login' && user) {
     authCookie.value = '1'
-    return navigateTo('/')
+    return navigateTo('/discover')
   }
 
   if (to.path !== '/login' && !user) {

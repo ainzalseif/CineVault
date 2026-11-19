@@ -1,23 +1,19 @@
-<<<<<<< HEAD
-# Film Max
-=======
 # Film Max
 
-A small, local-first movie catalog and watchlist built with Nuxt 4, Vuetify 4, and Video.js.
+A Nuxt 4 and Vuetify 4 movie catalog with Google sign-in, a protected dashboard, and a local watchlist.
 
-**Film Max** — Created by Mhikel Q. David · Est. 2026
+## Project pages
 
-## Features
+- `/login` — Google sign-in.
+- `/` — protected dashboard.
+- `/discover` — movie discovery page.
+- `/watch/big-buck-bunny` — Video.js library demo featuring the openly licensed Big Buck Bunny short film.
 
-- Browse movies, search by title, and filter by genre.
-- View movie details and open YouTube-hosted official trailers.
-- Add and remove movies from a watchlist saved in browser local storage.
-- Play the openly licensed Big Buck Bunny short film with Video.js.
-- Sign in with Google using the existing OAuth flow.
+**Chosen third-party library:** [Video.js](https://videojs.com/).
 
-Movie trailer playback is embedded from YouTube; Film Max does not host commercial movies. YouTube controls whether a video can be embedded in your region or on your browser. The openly licensed Big Buck Bunny film is streamed from the Internet Archive.
+**Live URL:** Not deployed yet. Add the public HTTPS URL here after deployment.
 
-## Setup
+## Local setup
 
 1. Install dependencies:
 
@@ -31,7 +27,7 @@ Movie trailer playback is embedded from YouTube; Film Max does not host commerci
    NUXT_PUBLIC_GOOGLE_CLIENT_ID=your-google-client-id.apps.googleusercontent.com
    ```
 
-   In Google Cloud Console, configure the OAuth consent screen and add `http://localhost:3000` as an authorized JavaScript origin for the OAuth client.
+   The client ID is public configuration, not a client secret. Do not commit `.env` or access tokens. Configure the OAuth client’s authorized JavaScript origins for `http://localhost:3000` and the deployed HTTPS origin.
 
 3. Start the development server:
 
@@ -41,16 +37,15 @@ Movie trailer playback is embedded from YouTube; Film Max does not host commerci
 
 4. Open `http://localhost:3000`.
 
-Google sign-in requires a valid OAuth client ID. The watchlist is stored in this browser and is not synced to Google or a server.
+Google sign-in requires a configured OAuth client ID. The watchlist is stored in this browser and is not synced to a server.
 
 ## Add a movie
 
-Edit `app/data/movies.ts`. For a YouTube trailer, set `youtubeId` to the video ID from its URL. For an authorized MP4, set `videoUrl`; that movie will play through Video.js.
+Edit `app/data/movies.ts`. Set `youtubeId` for a YouTube trailer, or set `videoUrl` for an authorized MP4 playable through Video.js.
 
-## Production build
+## Build
 
 ```bash
 npm run build
 npm run preview
 ```
->>>>>>> 975adb7 (Initial CineVault release)

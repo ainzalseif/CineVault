@@ -1,12 +1,17 @@
 <template>
-  <video
-    ref="videoElement"
-    class="video-js vjs-big-play-centered"
-    controls
-    playsinline
-    preload="metadata"
-    :poster="poster"
-  />
+  <div>
+    <video
+      ref="videoElement"
+      class="video-js vjs-big-play-centered"
+      controls
+      playsinline
+      preload="metadata"
+      :poster="poster"
+    />
+    <v-alert v-if="playerError" class="mt-4" type="error" variant="tonal" role="alert">
+      {{ playerError }}
+    </v-alert>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -18,18 +23,33 @@ const props = defineProps<{
 }>()
 
 const videoElement = ref<HTMLVideoElement | null>(null)
-let player: { dispose: () => void } | undefined
+const playerError = ref('')
+let player: {
+  dispose: () => void
+  on: (event: string, listener: () => void) => void
+} | undefined
 
 onMounted(async () => {
-  if (!videoElement.value) return
+  if (!videoElement.value) {
+    playerError.value = 'The video player could not be initialized.'
+    return
+  }
 
-  const videojs = (await import('video.js')).default
-  player = videojs(videoElement.value, {
-    controls: true,
-    responsive: true,
-    fluid: true,
-    sources: [{ src: props.src, type: 'video/mp4' }],
-  })
+  try {
+    const videojs = (await import('video.js')).default
+    player = videojs(videoElement.value, {
+      controls: true,
+      responsive: true,
+      fluid: true,
+      sources: [{ src: props.src, type: 'video/mp4' }],
+    })
+    player.on('error', () => {
+      playerError.value = 'The video could not be played. Check your connection and try again.'
+    })
+  } catch (error) {
+    console.error('Unable to initialize the Video.js player:', error)
+    playerError.value = 'The video player could not be loaded. Please try again later.'
+  }
 })
 
 onBeforeUnmount(() => {

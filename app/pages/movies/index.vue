@@ -49,7 +49,14 @@ import { movies } from '~/data/movies'
 
 const search = ref('')
 const selectedGenre = ref('All genres')
+const route = useRoute()
 const genres = ['All genres', ...new Set(movies.map(movie => movie.genre))]
+
+watch(() => route.query.genre, (genre) => {
+  selectedGenre.value = typeof genre === 'string' && genres.includes(genre)
+    ? genre
+    : 'All genres'
+}, { immediate: true })
 
 const filteredMovies = computed(() => {
   const query = search.value?.trim().toLowerCase() || ''
